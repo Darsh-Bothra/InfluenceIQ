@@ -6,14 +6,14 @@ import requests
 from PIL import Image
 from io import BytesIO
 
+from paths import DATA_PROCESSED
+
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0 Safari/537.36"
 }
 
-# Load Data (Replace with actual file path in production)
-file_path = "AuraLevel.csv"
-data = pd.read_csv(file_path)
-imagedb = pd.read_csv("imagedb.csv")
+data = pd.read_csv(DATA_PROCESSED / "AuraLevel.csv")
+imagedb = pd.read_csv(DATA_PROCESSED / "imagedb.csv")
 imagedb = imagedb[["username", "profilePicUrlHD"]]
 # Sort by Rank
 sorted_data = data.sort_values(by="rank", ascending=True)
