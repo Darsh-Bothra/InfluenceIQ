@@ -1,47 +1,221 @@
-# InfluenceIQ - AI-Powered Influencer Ranking
+# 🚀 InfluenceIQ - AI-Powered Influencer Ranking
 
-## Overview
-InfluenceIQ is an AI-powered system designed to measure and rank influencers based on their *engagement, credibility, and sentiment analysis. Traditional popularity metrics like likes and followers often misrepresent an influencer's true impact. Our system introduces a **data-driven approach* to identify individuals with *long-term influence* rather than fleeting viral success.
+InfluenceIQ is an AI-powered influencer ranking system that evaluates
+influencers based on **engagement**, **credibility**, and **audience
+sentiment** instead of relying solely on traditional popularity metrics
+such as followers and likes.
 
-## Features
-- *Data Processing & Cleaning*: Handles missing values, feature engineering, and normalization.
-- *Engagement Scoring*: Calculates influencer impact based on likes, comments, and views.
-- *Credibility Ranking*: Uses metrics like verification status, follower count, and sentiment analysis.
-- *Sentiment Analysis: Evaluates audience perception using a fine-tuned **RoBERTa* model.
-- *AI-Driven Ranking*: Implements a weighted scoring system to provide a reliable influencer ranking.
+Many influencers achieve temporary viral success but fail to maintain
+long-term audience trust. InfluenceIQ combines engagement metrics,
+credibility indicators, and AI-driven sentiment analysis to identify
+influencers with genuine and sustainable influence.
 
-## Methodology
-### 1. **Dataset Processing (dataset.ipynb)**
-- Loads influencer data and cleans it by handling missing values.
-- Computes *average likes, comments, and views* for each influencer.
-- Calculates *engagement rate*:
-  \[ \text{Engagement Rate} = \frac{\text{avgLikes} + \text{avgComments} + \text{avgViews}}{\text{followersCount}} \]
-- Assigns a credibility score based on:
-  \[ \text{credibilityScore} = \text{verified bonus} + 10 \log_{10}(\text{followers} + 1) + 5 \log_{10}(\text{posts} + 1) \]
+------------------------------------------------------------------------
 
-### 2. **Influencer Ranking (app.ipynb)**
-- *Min-Max Normalization* to standardize values:
-  \[ X' = \frac{X - X_{\min}}{X_{\max} - X_{\min}} \]
-- *Ranking Score Calculation*:
-  \[ \text{ranking score} = 0.15 \times \text{normalized engagement} + 0.85 \times \text{normalized credibility} \]
-- Uses *Dense Ranking Method* to rank influencers based on ranking_score.
+## ✨ Features
 
-### 3. *Sentiment Analysis for Credibility*
-- Uses *tw-roberta-base-sentiment-FT-v2* model to classify audience comments as *positive, neutral, or negative*.
-- Computes *Net Sentiment Score*:
-  \[ \text{Net Sentiment} = \frac{\text{Positive} - \text{Negative}}{\text{Positive} + \text{Negative}} \]
-- Adjusts credibility score using sentiment-driven engagement metrics.
+-   📊 **Data Processing & Cleaning**
+    -   Handles missing values
+    -   Performs feature engineering
+    -   Normalizes numerical features
+-   ❤️ **Engagement Scoring**
+    -   Calculates influencer engagement using average likes, comments,
+        and views.
+-   🏆 **Credibility Scoring**
+    -   Uses follower count, number of posts, verification status, and
+        audience sentiment to calculate a credibility score.
+-   🤖 **AI-Powered Sentiment Analysis**
+    -   Uses the **tw-roberta-base-sentiment-FT-v2** model to classify
+        audience comments as:
+        -   Positive
+        -   Neutral
+        -   Negative
+-   📈 **AI-Based Influencer Ranking**
+    -   Combines engagement and credibility using a weighted scoring
+        algorithm to generate the final influencer rankings.
 
-## Installation & Usage
-### Prerequisites
-Ensure you have Python installed along with the following libraries:
-bash
-pip install pandas numpy transformers torch scikit-learn
+------------------------------------------------------------------------
 
+# ⚙️ Methodology
 
-### Running the Notebooks
-1. *Dataset Preparation:* Run dataset.ipynb to clean and preprocess influencer data.
-2. *Ranking & Sentiment Analysis:* Execute app.ipynb to compute credibility scores and rank influencers.
+## 1. Dataset Processing (`dataset.ipynb`)
 
-## Conclusion
-InfluenceIQ provides a *reliable, AI-powered ranking system* that helps brands, investors, and the public identify *true industry leaders* based on *data-driven insights*, rather than just social media popularity.
+The preprocessing pipeline performs the following tasks:
+
+-   Loads and cleans influencer data.
+-   Handles missing values.
+-   Computes:
+    -   Average Likes
+    -   Average Comments
+    -   Average Views
+
+**Engagement Rate**
+
+``` text
+Engagement Rate = (Average Likes + Average Comments + Average Views) / Followers
+```
+
+**Credibility Score**
+
+``` text
+Credibility = Verification Bonus + 10 × log10(Followers + 1) + 5 × log10(Posts + 1)
+```
+
+------------------------------------------------------------------------
+
+## 2. Influencer Ranking (`app.ipynb`)
+
+Features are normalized using Min-Max Normalization.
+
+``` text
+X' = (X - Xmin) / (Xmax - Xmin)
+```
+
+Final Ranking Score:
+
+``` text
+Ranking Score = 0.15 × Normalized Engagement + 0.85 × Normalized Credibility
+```
+
+Influencers are ranked using the **Dense Ranking** method.
+
+------------------------------------------------------------------------
+
+## 3. Sentiment Analysis
+
+Audience comments are analyzed using the
+**tw-roberta-base-sentiment-FT-v2** model.
+
+Each comment is classified as:
+
+-   Positive
+-   Neutral
+-   Negative
+
+Net Sentiment:
+
+``` text
+Net Sentiment = (Positive − Negative) / (Positive + Negative)
+```
+
+The sentiment score is incorporated into the credibility score to
+improve ranking accuracy.
+
+------------------------------------------------------------------------
+
+# 🛠️ Tech Stack
+
+-   Python
+-   Pandas
+-   NumPy
+-   Scikit-learn
+-   PyTorch
+-   Hugging Face Transformers
+-   RoBERTa (`tw-roberta-base-sentiment-FT-v2`)
+-   Jupyter Notebook
+-   uv
+
+------------------------------------------------------------------------
+
+# 📂 Project Structure
+
+``` text
+InfluenceIQ/
+│
+├── app.ipynb
+├── dataset.ipynb
+├── pyproject.toml
+├── uv.lock
+├── README.md
+└── data/
+```
+
+------------------------------------------------------------------------
+
+# 📦 Installation
+
+## Clone the repository
+
+``` bash
+git clone https://github.com/Darsh-Bothra/InfluenceIQ.git
+cd InfluenceIQ
+```
+
+## Install dependencies
+
+``` bash
+uv sync
+```
+
+If you don't have **uv** installed:
+
+``` bash
+pip install uv
+```
+
+------------------------------------------------------------------------
+
+# ▶️ Running the Project
+
+Activate the virtual environment.
+
+**Linux / macOS**
+
+``` bash
+source .venv/bin/activate
+```
+
+**Windows**
+
+``` powershell
+.venv\Scripts\activate
+```
+
+Launch Jupyter Notebook:
+
+``` bash
+jupyter notebook
+```
+
+Run:
+
+1.  `dataset.ipynb`
+2.  `app.ipynb`
+
+------------------------------------------------------------------------
+
+# 🎯 Applications
+
+-   Influencer Marketing
+-   Brand Collaboration
+-   Social Media Analytics
+-   Creator Discovery
+-   Audience Trust Analysis
+
+------------------------------------------------------------------------
+
+# 🔮 Future Improvements
+
+-   Multi-platform support
+-   Fake follower detection
+-   Real-time ranking
+-   Explainable AI
+-   Streamlit dashboard
+-   Trend prediction
+
+------------------------------------------------------------------------
+
+# 🤝 Contributing
+
+Contributions are welcome! Feel free to fork the repository, make
+improvements, and submit a Pull Request.
+
+------------------------------------------------------------------------
+
+# 📜 License
+
+This project is intended for educational and research purposes.
+
+------------------------------------------------------------------------
+
+## ⭐ If you found this project helpful, consider giving it a star!
